@@ -1,10 +1,7 @@
 /**
- *https://st.jingxi.com/fortune_island/index2.html
- *cron:30 8 * * *
- *https://raw.githubusercontent.com/braless/learn-spring-cloud/dev/nodeJs/reBuildPT.js
  *
  PT签到
- 38 11 11 11 * PT签到.js
+ 0 0,8,21 * * *PT签到.js
  */
 const moment = require("moment")
 const fs = require("fs")
@@ -14,6 +11,8 @@ const axios = require("axios")
 const cookie_cloud = true; //是否使用cookie云
 let endmsg = "";
 let msg = "";
+var now = moment().locale('zh-cn').format('YYYY-MM-DD');
+var day = moment(now).diff(moment("2021-05-01"), 'days');
 run();
 
 /**
@@ -25,12 +24,10 @@ async function run() {
         console.log("当前使用的是Cookie来源是:", cookie_cloud ? "COOKIECLOUD" : "本地Cookie")
         let sites = cookie_cloud ? await cloudCookie.getCloudCookies() : JSON.parse(fs.readFileSync('./dataConfig.json'));
         let startTime = new Date().getTime();
-        var now = moment().locale('zh-cn').format('YYYY-MM-DD');
-        var day = moment(now).diff(moment("2021-05-01"), 'days');
         const tips = "本签到已运行:" + day + "天"
         console.log(tips)
         for (let i = 0; i < sites.length; i++) {
-            if (sites[i].siteName.match(/PT-Time/))
+            //if (sites[i].siteName.match(/PT-Time/))
                 await SIGN(sites[i], i + 1)
         }
         let endTime = new Date().getTime();
