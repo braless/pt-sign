@@ -6,7 +6,7 @@
 const moment = require("moment")
 const fs = require("fs")
 const barkNotify = require("./barkPush");
-const cloudCookie = require("./CookieCloudUtil");//云cookie
+const cloudCookie = require("./cookieUtil");//云cookie
 const axios = require("axios")
 const cookie_cloud = true; //是否使用cookie云
 let endmsg = "";
